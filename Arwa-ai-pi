@@ -1,0 +1,142 @@
+import React, { useState } from "react";
+import { Card, CardContent } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Button } from "@/components/ui/button";
+import { FlaskConical, Microscope, Rocket, Bot } from "lucide-react";
+
+export default function DynamicWebsiteShowcase() {
+  const [input, setInput] = useState("");
+  const [response, setResponse] = useState("");
+
+  const [num1, setNum1] = useState("");
+  const [num2, setNum2] = useState("");
+  const [result, setResult] = useState(null);
+
+  const handleAskAI = () => {
+    if (input.trim() === "") return;
+    const simulatedResponse = `AI Suggestion: For "${input}", consider using interactive visualizations or simulations.`;
+    setResponse(simulatedResponse);
+  };
+
+  const calculate = (operator) => {
+    const a = parseFloat(num1);
+    const b = parseFloat(num2);
+    if (isNaN(a) || isNaN(b)) {
+      setResult("Please enter valid numbers.");
+      return;
+    }
+    switch (operator) {
+      case "+": setResult(a + b); break;
+      case "-": setResult(a - b); break;
+      case "*": setResult(a * b); break;
+      case "/": setResult(b !== 0 ? a / b : "Cannot divide by zero"); break;
+      default: setResult(null);
+    }
+  };
+
+  return (
+    <div className="p-6 max-w-5xl mx-auto space-y-8 bg-gradient-to-r from-indigo-100 to-blue-100 min-h-screen">
+      <div className="text-center space-y-4">
+        <Rocket className="mx-auto text-blue-700" size={48} />
+        <h1 className="text-4xl font-bold text-blue-900 font-mono">🚀 Dynamic Website Showcase Competition</h1>
+        <p className="text-lg text-gray-800 max-w-2xl mx-auto">
+          Combine science and code! This is your mission to design a fully interactive, functional, and scientifically-themed website. Open to students from school, college, and university levels!
+        </p>
+      </div>
+
+      <Card className="bg-white shadow-xl">
+        <CardContent className="space-y-4 p-6">
+          <h2 className="text-2xl font-semibold text-blue-700 flex items-center gap-2">
+            <Microscope /> Website Requirements
+          </h2>
+          <ul className="list-disc list-inside text-gray-900 space-y-2">
+            <li>Must include scientific themes (e.g., space, biology, AI, environment).</li>
+            <li>Include dynamic elements: user input, animations, or data-driven content.</li>
+            <li>Use any technology stack (HTML, CSS, JS, React, Python, etc.).</li>
+            <li>Fully functional and hosted online (GitHub Pages, Firebase, etc.).</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-white shadow-xl">
+        <CardContent className="space-y-4 p-6">
+          <h2 className="text-2xl font-semibold text-green-700 flex items-center gap-2">
+            <FlaskConical /> Prizes and Opportunities
+          </h2>
+          <ul className="list-disc list-inside text-gray-900 space-y-2">
+            <li><strong>First Prize:</strong> Internship opportunity (to be disclosed soon)</li>
+            <li><strong>Special Award:</strong> Best Use of AI or Automation</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-white shadow-xl">
+        <CardContent className="space-y-4 p-6">
+          <h2 className="text-2xl font-semibold text-red-700">Evaluation Criteria</h2>
+          <ul className="list-disc list-inside text-gray-900 space-y-2">
+            <li><strong>Creativity and Design:</strong> Scientific visuals, intuitive UI</li>
+            <li><strong>Functionality and Features:</strong> Smooth performance, engaging interactivity</li>
+            <li><strong>Technical Complexity:</strong> Frameworks, APIs, backend integration</li>
+            <li><strong>Innovation:</strong> Original scientific ideas and execution</li>
+          </ul>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-white shadow-xl">
+        <CardContent className="space-y-4 p-6">
+          <h2 className="text-2xl font-semibold text-indigo-700 flex items-center gap-2">
+            <Bot /> Ask AI for Ideas
+          </h2>
+          <div className="space-y-4">
+            <input
+              type="text"
+              placeholder="Enter your scientific idea/topic..."
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+            />
+            <Button onClick={handleAskAI} className="bg-indigo-600 text-white hover:bg-indigo-700">
+              Get Suggestion
+            </Button>
+            {response && <p className="text-gray-700 bg-gray-100 p-4 rounded-md">{response}</p>}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="bg-white shadow-xl">
+        <CardContent className="space-y-4 p-6">
+          <h2 className="text-2xl font-semibold text-purple-700">Scientific Calculator</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <input
+              type="number"
+              placeholder="Enter first number"
+              className="px-4 py-2 border border-gray-300 rounded-md"
+              value={num1}
+              onChange={(e) => setNum1(e.target.value)}
+            />
+            <input
+              type="number"
+              placeholder="Enter second number"
+              className="px-4 py-2 border border-gray-300 rounded-md"
+              value={num2}
+              onChange={(e) => setNum2(e.target.value)}
+            />
+          </div>
+          <div className="flex gap-2 mt-4 flex-wrap">
+            <Button onClick={() => calculate("+")} className="bg-blue-500 text-white">+</Button>
+            <Button onClick={() => calculate("-")} className="bg-blue-500 text-white">-</Button>
+            <Button onClick={() => calculate("*")} className="bg-blue-500 text-white">*</Button>
+            <Button onClick={() => calculate("/")} className="bg-blue-500 text-white">/</Button>
+          </div>
+          {result !== null && <p className="mt-4 text-lg font-semibold text-gray-800">Result: {result}</p>}
+        </CardContent>
+      </Card>
+
+      <div className="text-center">
+        <Button className="text-white bg-blue-700 hover:bg-blue-800 text-lg px-6 py-3 rounded-xl shadow-lg">
+          Register Now
+        </Button>
+      </div>
+    </div>
+  );
+}
